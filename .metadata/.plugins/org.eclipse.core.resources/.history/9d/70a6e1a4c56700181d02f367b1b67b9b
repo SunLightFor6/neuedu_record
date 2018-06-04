@@ -1,0 +1,129 @@
+package demo0604.calendar;
+
+/**
+ * 日历类 调用静态方法display()显示月历/年历
+ * @author Sun
+ *
+ */
+public class Calendar {
+	
+	/**
+	 * 是否是闰年
+	 * @param year
+	 * @return
+	 */
+	public static boolean isLeapYear(int year){
+		return year % 4 == 0 && year % 100 != 0 || year % 400 == 0 ? 
+				true : false;
+	}
+	
+	/**
+	 * 某年某月有多少天
+	 * @param year
+	 * @param month
+	 * @return
+	 */
+	public static int daynum(int year, int month){
+		int dayNum = 0;
+		boolean isLeapYear = isLeapYear(year);
+		switch(month) {
+		case 1:
+		case 3:
+		case 5:
+		case 7:
+		case 8:
+		case 10:
+		case 12:
+			dayNum = 31;
+			break;
+		case 4:
+		case 6:
+		case 9:
+		case 11:
+			dayNum = 30;
+			break;
+		case 2:
+			if(isLeapYear) {
+				dayNum = 29;
+			} else {
+				dayNum = 28;
+			}
+			break;
+		default:
+			break;
+		}
+		return dayNum;
+	}
+	
+	/**
+	 * 当前年有多少天
+	 * @param year
+	 * @return
+	 */
+	public static int daynum(int year){
+		boolean isLeapYear = isLeapYear(year);
+		int dayNum = isLeapYear ? 366 : 365;		
+		return dayNum;
+	}
+		
+	/**
+	 * 某年某月第一天距离基准日的天数
+	 * @param year
+	 * @param month
+	 * @return
+	 */
+	public static int manyDaysToBase(int year, int month){
+		int days = 0;
+		//分两种情况，年份大于2000和年份小于2000
+		if(year >= 2000) {
+			for(int i=2000; i<year; i++) {
+				days += daynum(i);
+			}
+			for(int j=1; j<month; j++) {
+				days += daynum(year, j);
+			}			
+		} else {
+			for(int i=1999; i>year; i--) {
+				days += daynum(i);
+			}
+			for(int j=12; j>=month; j--) {
+				days += daynum(year, j);
+			}
+		}
+		
+		return days;
+	}
+	
+	/**
+	 * 某年某月某日距离基准日的天数
+	 * @param year
+	 * @param month
+	 * @param day
+	 * @return
+	 */
+	public static int manyDaysToBase(int year, int month, int day) {
+		int days = 0;
+		days += manyDaysToBase(year, month);
+		if(year >= 2000) {
+			days += day - 1;
+		} else {
+			days += daynum(year, month) - day;
+		}
+		return days;
+	}
+	
+	
+	public static void main(String[] args) {
+//		System.out.println(daynum(2000));
+//		System.out.println(daynum(2018));
+//		System.out.println(daynum(2100));
+//		System.out.println(daynum(2018, 1));
+//		System.out.println(daynum(2018, 2));
+//		System.out.println(daynum(2000, 2));
+		System.out.println(manyDaysToBase(2000, 2));
+		System.out.println(manyDaysToBase(2000, 3));
+		System.out.println(manyDaysToBase(1999, 12));
+		System.out.println(manyDaysToBase(1998, 2));
+
+	}
+}
