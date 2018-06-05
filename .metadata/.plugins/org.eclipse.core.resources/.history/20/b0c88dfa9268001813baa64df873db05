@@ -1,0 +1,5 @@
+package com.neuedu.shopping;
+
+public class InitServlet {
+
+}
