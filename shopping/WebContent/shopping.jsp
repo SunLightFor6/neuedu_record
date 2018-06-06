@@ -7,14 +7,15 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>购物车</title>
+<link rel="stylesheet" href="./style.css">
 </head>
 <body>
 <br>
 <hr>
 <h1 align="center"> Book Store </h1>
 <br>
-<h3><a href="shopping.jsp"></a>购买课本</h3>
-<h3><a href="test/BookServlet?method=findAll"></a>查看购物车</h3>
+<h3><a href="load">购买课本</a></h3>
+<h3><a href="BookServlet?method=showAll">查看购物车</a></h3>
 <hr>
 <!-- 显示所有book -->
 <% 	List<Book> books = (List<Book>) session.getAttribute("booklist"); %>
@@ -22,11 +23,9 @@
 	for(Book book : books) {
 		%>
 		<h3>
-		<%=book.getName() %>
+		<a href="BookServlet?method=buy&name=<%=book.getName() %>">《<%=book.getName() %>》</a>
+		<span class="price">￥<%=book.getPrice() %></span>
 		</h3>
-		<span>
-		<%=book.getPrice() %>
-		</span>
 		<%
 	}
 %>

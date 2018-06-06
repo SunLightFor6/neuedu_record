@@ -1,4 +1,4 @@
 #Tomcat publish data
-#Tue Jun 05 17:04:36 CST 2018
+#Wed Jun 06 13:04:17 CST 2018
 org.eclipse.jst.jee.server\:demo_web=C\:\\Program Files\\Apache Software Foundation\\apache-tomcat-7.0.75-windows-x64\\apache-tomcat-7.0.75\\wtpwebapps\\demo_web
 org.eclipse.jst.jee.server\:shopping=C\:\\Program Files\\Apache Software Foundation\\apache-tomcat-7.0.75-windows-x64\\apache-tomcat-7.0.75\\wtpwebapps\\shopping

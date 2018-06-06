@@ -1,5 +1,6 @@
 package com.neuedu.shopping;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -9,16 +10,16 @@ import java.util.List;
  *
  */
 public class BookService {
-	private List<Book> booksList;
+	private List<Book> booksList = new ArrayList<Book>();
 	
 	public BookService() {
 		this.booksList.add(new Book("Java", 12, 100));
 		this.booksList.add(new Book("JSP", 17.5, 100));
-		this.booksList.add(new Book("Web前端	", 19, 120));
+		this.booksList.add(new Book("Webcss/js", 19, 120));
 		this.booksList.add(new Book("Spring", 23, 100));
 		this.booksList.add(new Book("SpringMVC", 22.5, 133));
 		this.booksList.add(new Book("Mybatis", 12, 100));
-		this.booksList.add(new Book("BootStrap从入门到快乐", 10.5, 80));
+		this.booksList.add(new Book("BootStrap", 10.5, 80));
 	}
 	
 	public BookService(List<Book> booksList) {
@@ -31,6 +32,15 @@ public class BookService {
 
 	public void setBooksList(List<Book> booksList) {
 		this.booksList = booksList;
+	}
+	
+	public Book getByName(String name) {
+		for(Book book : booksList) {
+			if(book.getName().equals(name)) {
+				return book;
+			}
+		}
+		return null;
 	}
 	
 }

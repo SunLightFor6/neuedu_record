@@ -9,8 +9,13 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-@WebServlet("/")
+@WebServlet("/load")
 public class LoadServlet extends HttpServlet {
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 
 	/* (non-Javadoc)
 	 * @see javax.servlet.http.HttpServlet#doGet(javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
@@ -21,6 +26,7 @@ public class LoadServlet extends HttpServlet {
 		HttpSession session = req.getSession();
 		BookService bookservice = new BookService();
 		session.setAttribute("booklist", bookservice.getBooksList());
+		req.getRequestDispatcher("shopping.jsp").forward(req, resp);;
 	}
 
 	/* (non-Javadoc)

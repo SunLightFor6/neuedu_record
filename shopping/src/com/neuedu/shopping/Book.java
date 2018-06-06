@@ -10,6 +10,9 @@ public class Book {
 	private double price;
 	private int stock;	//¿â´æ
 	
+	public Book(){
+		
+	}
 	
 	public Book(String name, double price, int stock) {
 		this.name = name;

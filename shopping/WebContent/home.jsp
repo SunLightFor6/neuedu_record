@@ -11,8 +11,8 @@
 <hr>
 <h1 align="center"> Book Store </h1>
 <br>
-<h3><a href="shopping.jsp">购买课本</a></h3>
-<h3><a href="test/BookServlet?method=findAll">查看购物车</a></h3>
+<h3><a href="load">购买课本</a></h3>
+<h3><a href="BookServlet?method=showAll">查看购物车</a></h3>
 <hr>
 <h4>jsessionid:<%=session.getId() %></h4>
 </body>
