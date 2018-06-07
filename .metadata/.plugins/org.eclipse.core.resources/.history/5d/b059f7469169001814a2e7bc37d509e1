@@ -1,0 +1,43 @@
+package com.neuedu.trans.dao;
+
+import java.sql.ResultSet;
+import java.sql.SQLException;
+
+import com.neuedu.trans.util.JDBCUtil;
+
+public class UserInfoDao {
+	
+	public String getPasswordByName(String name) throws SQLException {
+		String password = "";
+		JDBCUtil db = new JDBCUtil();
+		db.getConnection();
+		String sql = "select password from USERINFO where name = ?";
+		Object[] obj = {name};
+		ResultSet rs = db.executeQuery(sql, obj);
+		if(rs.next()) {
+			password = rs.getString(1);
+		}
+		rs.close();
+		return password;
+	}
+	
+	public int addBalance(String name, double num) throws SQLException {
+		System.out.println("DAO -- addBalance()");
+		JDBCUtil db = new JDBCUtil();
+		db.getConnection();
+		String sql = "update USERINFO set balance = balance + ? where name = ?";
+		Object[] obj = {num, name};
+		int count = db.executeUpdate(sql, obj);
+		return count;
+	}
+	
+	public int decBalance(String name, double num) throws SQLException {
+		System.out.println("DAO -- decBalance()");
+		JDBCUtil db = new JDBCUtil();
+		db.getConnection();
+		String sql = "update USERINFO set balance = balance - ? where name = ?";
+		Object[] obj = {num, name};
+		int count = db.executeUpdate(sql, obj);
+		return count;
+	}
+}

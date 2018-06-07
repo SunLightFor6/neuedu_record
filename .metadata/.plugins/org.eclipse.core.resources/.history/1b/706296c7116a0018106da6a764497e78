@@ -1,0 +1,9 @@
+package com.neuedu.pro1.service.impl;
+
+public class UserInfoServiceBean {
+
+	public UserInfoServiceBean() {
+		// TODO Auto-generated constructor stub
+	}
+
+}

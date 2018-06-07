@@ -1,0 +1,5 @@
+package com.neuedu.trans.bean;
+
+public class UserInfo {
+
+}

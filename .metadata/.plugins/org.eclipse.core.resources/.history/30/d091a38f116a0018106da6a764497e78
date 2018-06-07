@@ -1,0 +1,5 @@
+package com.neuedu.pro1.service;
+
+public interface UserInfoService {
+
+}

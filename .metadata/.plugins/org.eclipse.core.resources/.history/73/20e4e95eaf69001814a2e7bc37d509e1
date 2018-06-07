@@ -1,0 +1,30 @@
+package com.neuedu.trans.service;
+
+import java.sql.SQLException;
+
+import com.neuedu.trans.bean.UserInfo;
+import com.neuedu.trans.dao.UserInfoDao;
+
+public class UserInfoService {
+	public boolean isLoginSuccessfully(String name, String password) {
+		UserInfoDao dao = new UserInfoDao();
+		String password_c = "";
+		try {
+			password_c = dao.getPasswordByName(name);
+			System.out.println("password_input: " + password + " password_db: " + password_c);
+			if(password_c.equals(password)) {
+				System.out.println("success!");
+				return true;
+			}
+			System.out.println("failure!");
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}		
+		return false;
+	}
+	
+	public boolean transferAccount(String fromname, String toname, double num) {
+		
+		return false;
+	}
+}

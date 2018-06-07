@@ -1,3 +1,0 @@
-INDEX VERSION 1.129
-D:\Users\Sun\Java_workspace\neuedu\.metadata\.plugins\org.eclipse.jst.jsp.core\jspsearch\3959983516.index
-\shopping\src

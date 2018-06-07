@@ -1,0 +1,18 @@
+package com.neuedu.trans.dao;
+
+public class UserInfoDao {
+	public String getPasswordByName(String name) {
+		//TODO
+		return "";
+	}
+	
+	public int addBalance(String name, double num) {
+		//TODO
+		return 0;
+	}
+	
+	public int decBalance(String name, double num) {
+		//TODO
+		return 0;
+	}
+}
