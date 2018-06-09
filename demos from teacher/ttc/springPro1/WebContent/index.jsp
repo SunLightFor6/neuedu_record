@@ -10,5 +10,6 @@
 <h1 align="center">Spring练习</h1>
 <hr>
 <h3>1.<a href="MyServlet">MyServlet</a></h3>
+<h3>2.<a href="MyServlet2">MyServlet2-静态工厂方法创建对象</a></h3>
 </body>
 </html>

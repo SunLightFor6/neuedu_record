@@ -35,10 +35,17 @@ public class MyServlet extends HttpServlet {
 		System.out.println(".....MyServlet.....doGet().....");
 		
 		ApplicationContext ctx = new ClassPathXmlApplicationContext("beans.xml");
+		System.out.println("...1.....");
 		UserinfoService service=(UserinfoService)ctx.getBean("UserinfoService");
+		UserinfoService service2=(UserinfoService)ctx.getBean("UserinfoService");
 		
+		System.out.println("service="+service);
+		System.out.println("service2="+service2);
+		
+		System.out.println("...2.....");
 	//	UserinfoService service=new UserinfoServiceBean();
 		service.findAll();
+		System.out.println("over");
 		request.getRequestDispatcher("msg.jsp").forward(request, response);
 	}
 

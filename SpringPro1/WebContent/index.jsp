@@ -4,11 +4,14 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; utf-8">
-<title>Insert title here</title>
+<title>index</title>
 </head>
 <body>
-<h1 align="center">Spring练习</h1>
 <hr>
-<h3>1.<a href="MyServlet">MyServlet</a></h3>
+<h1 align="center">Spring INDEX</h1>
+<hr>
+<br><br>
+<h2 align="center"><a href="add.jsp">add a new user</a></h4>
+<h2 align="center"><a href="MyServlet?method=listAll">list all the users</a></h4>
 </body>
 </html>

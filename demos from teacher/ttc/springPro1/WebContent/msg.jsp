@@ -10,5 +10,6 @@
 <h1 align="center">Spring练习--信息提示也msg.jsp</h1>
 <hr>
 <h3>1.<a href="Myservlet">MyServlet</a></h3>
+<h1 align="center">${msg}</h1>
 </body>
 </html>

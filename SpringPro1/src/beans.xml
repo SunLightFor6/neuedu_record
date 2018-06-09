@@ -5,13 +5,20 @@
        xsi:schemaLocation="http://www.springframework.org/schema/beans
            http://www.springframework.org/schema/beans/spring-beans-2.5.xsd
            http://www.springframework.org/schema/context
-           http://www.springframework.org/schema/context/spring-context-2.5.xsd">
+           http://www.springframework.org/schema/context/spring-context-2.5.xsd"
+		default-lazy-init="true"           
+           >
+       <!-- 延迟加载 -->
          <!-- 
           <context:component-scan base-package="com.neusoft"/>
            -->
+         <!-- 注册Dao -->
+         <bean id="UserInfoDao" class="com.neuedu.pro1.dao.impl.UserInfoDaoBean"></bean>
          <!-- 类构造器实例化bean -->
          <!-- 完成的是控制层Controller Servlet与Service之间的解耦 -->
-         <bean id="UserInfoService" class="com.neuedu.pro1.service.impl.UserInfoServiceBean"/>
+         <bean id="UserInfoService" class="com.neuedu.pro1.service.impl.UserInfoServiceBean">
+        	 <property name="userInfoDao" ref="UserInfoDao"></property>
+         </bean>
          <!-- 静态工厂实例化bean -->
          <bean id="UserInfoService2" class="com.neuedu.pro1.factory.UserInfoServiceFactory1" factory-method="createUserInfoService"></bean>
          <!-- 实例工厂实例化bean -->

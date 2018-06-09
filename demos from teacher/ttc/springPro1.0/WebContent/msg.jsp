@@ -7,8 +7,8 @@
 <title>Insert title here</title>
 </head>
 <body>
-<h1 align="center">Spring练习--信息提示</h1>
+<h1 align="center">Spring练习--信息提示也msg.jsp</h1>
 <hr>
-<h3>1.<a href="MyServlet">MyServlet</a></h3>
+<h3>1.<a href="Myservlet">MyServlet</a></h3>
 </body>
 </html>

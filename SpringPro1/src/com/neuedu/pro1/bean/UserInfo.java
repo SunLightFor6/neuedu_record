@@ -2,39 +2,68 @@ package com.neuedu.pro1.bean;
 
 public class UserInfo {
 	private int id;
-	private String userName;
-	private String pwd;
-	private int num;
+	private String name;
+	private String password;
+	private double balance;
 	private String other;
+	/**
+	 * @return the id
+	 */
 	public int getId() {
 		return id;
 	}
+	/**
+	 * @param id the id to set
+	 */
 	public void setId(int id) {
 		this.id = id;
 	}
-	public String getUserName() {
-		return userName;
+	/**
+	 * @return the name
+	 */
+	public String getName() {
+		return name;
 	}
-	public void setUserName(String userName) {
-		this.userName = userName;
+	/**
+	 * @param name the name to set
+	 */
+	public void setName(String name) {
+		this.name = name;
 	}
-	public String getPwd() {
-		return pwd;
+	/**
+	 * @return the password
+	 */
+	public String getPassword() {
+		return password;
 	}
-	public void setPwd(String pwd) {
-		this.pwd = pwd;
+	/**
+	 * @param password the password to set
+	 */
+	public void setPassword(String password) {
+		this.password = password;
 	}
-	public int getNum() {
-		return num;
+	/**
+	 * @return the balance
+	 */
+	public double getBalance() {
+		return balance;
 	}
-	public void setNum(int num) {
-		this.num = num;
+	/**
+	 * @param balance the balance to set
+	 */
+	public void setBalance(double balance) {
+		this.balance = balance;
 	}
+	/**
+	 * @return the other
+	 */
 	public String getOther() {
 		return other;
 	}
+	/**
+	 * @param other the other to set
+	 */
 	public void setOther(String other) {
 		this.other = other;
 	}
-	
 }
