@@ -6,15 +6,36 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <title>留言板</title>
+<link rel="stylesheet" type="text/css" href="<%=request.getContextPath() %>/css/bootstrap.css">
+<script src="<%=request.getContextPath()%>/js/jquery-3.2.1.min.js"></script>
+<script src="<%=request.getContextPath()%>/js/bootstrap.js"></script>
 </head>
 <body>
+<div class="container">
+<div class="row">
 <hr>
 <h1 align="center">这是一个留言板</h1>
 <hr>
-<c:import url="note.jsp"></c:import> 
-<h3><a href="add.jsp">新增留言</a></h3>
-<h3><a href="MessageServlet?method=showAll">查看留言</a></h3>
+</div>
+<div class="row">
+<c:import url="note.jsp"></c:import>
+</div>
+<div class="row"> 
+<div class="col-lg-2"></div>
+<div class="col-lg-8">
+<h4><a href="add.jsp">新增留言</a></h3>
+<h4><a href="MessageServlet?method=showAll&init=1">查看留言</a></h3>
+</div>
+</div>
+<div class="row">
 <hr>
+</div>
+<div class="row">
+<div class="col-lg-2"></div>
+<div class="col-lg-8">
 <c:import url="showAll.jsp"></c:import> 
+</div>
+</div>
+</div>
 </body>
 </html>

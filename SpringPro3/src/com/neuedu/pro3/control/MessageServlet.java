@@ -15,7 +15,9 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 import com.neuedu.pro3.bean.Message;
+import com.neuedu.pro3.bean.Page;
 import com.neuedu.pro3.service.MessageService;
+import com.neuedu.pro3.service.PageService;
 
 /**
  * Servlet implementation class MessageServlet
@@ -63,7 +65,7 @@ public class MessageServlet extends HttpServlet {
 		request.getRequestDispatcher("MessageServlet?method=showAll").forward(request, response);;
 		return;
 	}
-
+/*
 	private void showAll(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		System.out.println("----MssageServlet----showAll()----");
 		ApplicationContext act = new ClassPathXmlApplicationContext("spring.xml");
@@ -71,14 +73,47 @@ public class MessageServlet extends HttpServlet {
 		HttpSession session = request.getSession();
 		List<Message> messages = new ArrayList<Message>();
 		messages = messageService.listAll();
+		String init = request.getParameter("init");
 		if(messages.isEmpty() || messages == null) {
 			session.setAttribute("note", "ÁôÑÔ°åÎª¿Õ");
-		} 
+		} else if ("1".equals(init)) {
+			session.setAttribute("note", "");
+		}
 		session.setAttribute("messages", messages);
 		request.getRequestDispatcher("index.jsp").forward(request, response);
 		return;
 	}
-
+*/
+	
+	private void showAll(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		System.out.println("----MssageServlet----showAll()----");
+		ApplicationContext act = new ClassPathXmlApplicationContext("spring.xml");
+		PageService pageService = (PageService) act.getBean("PageService");
+		HttpSession session = request.getSession();
+		List<Message> messages = new ArrayList<Message>();
+		String init = request.getParameter("init");
+		int currentPage = -1;
+		if(request.getParameter("page") == null) {
+			currentPage = 1;
+		} else {
+			currentPage = Integer.parseInt(request.getParameter("page"));
+		}
+		int countPerPage = 10;
+		Page pageBean = pageService.getPageBean(countPerPage, currentPage);
+		messages = pageBean.getResults();
+		int pageCount = pageBean.getPageCount();
+//		messages = messageService.listAll();
+		session.setAttribute("pageCount", pageCount);
+		if(messages.isEmpty() || messages == null) {
+			session.setAttribute("note", "ÁôÑÔ°åÎª¿Õ");
+		} else if ("1".equals(init)) {
+			session.setAttribute("note", "");
+		}
+		session.setAttribute("messages", messages);
+		request.getRequestDispatcher("index.jsp").forward(request, response);
+		return;
+	}
+	
 	private void add(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		System.out.println("----MssageServlet----add()----");
 		ApplicationContext act = new ClassPathXmlApplicationContext("spring.xml");
