@@ -23,8 +23,8 @@
 <div class="row"> 
 <div class="col-lg-2"></div>
 <div class="col-lg-8">
-<h4><a href="add.jsp">新增留言</a></h3>
-<h4><a href="MessageHandler/showAll?init=1">查看留言</a></h3>
+<h4><a href="${pageContext.request.contextPath}/add.jsp">新增留言</a></h3>
+<h4><a href="${pageContext.request.contextPath}/MessageHandler/showAll?init=1">查看留言</a></h3>
 </div>
 </div>
 <div class="row">

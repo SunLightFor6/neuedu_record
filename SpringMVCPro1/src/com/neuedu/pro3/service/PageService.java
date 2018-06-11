@@ -23,4 +23,17 @@ public interface PageService {
 	 */
 	public Page getPageBean(int countPerPage, int currentPage);
 	
+	/**
+	 * 计算得到显示页面的页码区间的起始页码
+	 * @param page
+	 * @return
+	 */
+	public int getPageBegin(Page page);
+	
+	/**
+	 * 计算得到显示页面的页码区间的终止页码
+	 * @param page
+	 * @return
+	 */
+	public int getPageEnd(Page page);
 }

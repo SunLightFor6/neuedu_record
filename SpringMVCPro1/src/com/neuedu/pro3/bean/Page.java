@@ -28,7 +28,43 @@ public class Page {
 	 * 当前查询的结果集
 	 */
 	List<Message> results;
+	/**
+	 * 当前页面区间头
+	 */
+	int pageBegin;
+	/**
+	 * 当前页面区间尾
+	 */
+	int pageEnd;
 	
+	/**
+	 * @return the pageBegin
+	 */
+	public int getPageBegin() {
+		return pageBegin;
+	}
+
+	/**
+	 * @param pageBegin the pageBegin to set
+	 */
+	public void setPageBegin(int pageBegin) {
+		this.pageBegin = pageBegin;
+	}
+
+	/**
+	 * @return the pageEnd
+	 */
+	public int getPageEnd() {
+		return pageEnd;
+	}
+
+	/**
+	 * @param pageEnd the pageEnd to set
+	 */
+	public void setPageEnd(int pageEnd) {
+		this.pageEnd = pageEnd;
+	}
+
 	Page() {	}
 
 	public Page(int currentPage, int countPerPage) {

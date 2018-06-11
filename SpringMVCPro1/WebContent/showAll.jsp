@@ -18,7 +18,7 @@
 	<th>id:${message.id}</th>
 	<th>${message.title}</th>
 	<th>
-	<form action="MessageHandler/delete?id=${message.id}" method="post">
+	<form action="${pageContext.request.contextPath}/MessageHandler/delete?id=${message.id}" method="post">
 		<button>删除</button>
 	</form>
 	</th>
@@ -36,11 +36,22 @@
 <c:choose>
 <c:when test="${not empty messages}">
 <ul class="pagination">
-    <li><a href="#">&laquo;</a></li>
-	<c:forEach begin="1" end="${pageCount }" var="pagenum">
-    <li><a href="MessageHandler/showAll&page=${pagenum}&init=1">${pagenum}</a></li>
+    <li><a href="${pageContext.request.contextPath}/MessageHandler/showAll?page=1&init=1">&laquo;</a></li>
+    <li><a href="${pageContext.request.contextPath}/MessageHandler/showAll?page=${pageBean.currentPage==1?1:(pageBean.currentPage-1)}&init=1"><</a></li>
+	
+	<c:if test="${pageBean.pageBegin != -1 }">
+	<c:forEach begin="${pageBean.pageBegin }" end="${pageBean.currentPage - 1 }" var="pagenum">
+    	<li><a href="${pageContext.request.contextPath}/MessageHandler/showAll?page=${pagenum}&init=1">${pagenum}</a></li>
 	</c:forEach>
-    <li><a href="#">&raquo;</a></li>
+	</c:if>
+	<li class="active"><a href="${pageContext.request.contextPath}/MessageHandler/showAll?page=${pageBean.currentPage }&init=1">${pageBean.currentPage}</a></li>
+	<c:if test="${pageBean.pageEnd != -1 }">
+	<c:forEach begin="${pageBean.currentPage + 1 }" end="${pageBean.pageEnd }" var="pagenum">
+   		<li><a href="${pageContext.request.contextPath}/MessageHandler/showAll?page=${pagenum}&init=1">${pagenum}</a></li>
+	</c:forEach>
+	</c:if>
+	<li><a href="${pageContext.request.contextPath}/MessageHandler/showAll?page=${pageBean.currentPage==pageBean.pageCount?pageBean.pageCount:(pageBean.currentPage+1)}&init=1">></a></li>
+    <li><a href="${pageContext.request.contextPath}/MessageHandler/showAll?page=${pageBean.pageCount }&init=1">&raquo;</a></li>
 </ul>
 <hr>
 </c:when>

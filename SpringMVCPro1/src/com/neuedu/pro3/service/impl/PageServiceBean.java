@@ -54,6 +54,41 @@ public class PageServiceBean implements PageService {
 		}
 		return results;
 	}
+	
+	@Override
+	public int getPageBegin(Page page) {
+		int beginPage = -1;
+		int currentPage = page.getCurrentPage();
+		if(currentPage == 1) {
+			beginPage = -1;
+		} else if (currentPage - 4 <= 1) {
+			beginPage = 1;
+		} else if (currentPage == page.getPageCount()) {
+			beginPage = page.getPageCount() - 9;
+		} else if (currentPage + 4 >= page.getPageCount()) {
+			beginPage = page.getPageCount() - 9;
+		} else {
+			beginPage = currentPage - 4;
+		}
+		return beginPage;
+	}
+	@Override
+	public int getPageEnd(Page page) {
+		int endPage = -1;
+		int currentPage = page.getCurrentPage();
+		if (currentPage == page.getPageCount()) {
+			endPage = -1;
+		}else if (currentPage + 4 >= page.getPageCount()) {
+			endPage = page.getPageCount();
+		} else if(currentPage == 1) {
+			endPage = 9;
+		} else if (currentPage - 4 <= 1) {
+			endPage = 9;
+		} else {
+			endPage = currentPage + 4;
+		}
+		return endPage;
+	}
 
 	@Override
 	public Page getPageBean(int countPerPage, int currentPage) {
@@ -68,6 +103,8 @@ public class PageServiceBean implements PageService {
 		}
 		pageBean.setPageCount(pageCount);
 		pageBean.setResults(this.selectResults(pageBean));
+		pageBean.setPageBegin(this.getPageBegin(pageBean));
+		pageBean.setPageEnd(this.getPageEnd(pageBean));
 		return pageBean;
 	}
 }

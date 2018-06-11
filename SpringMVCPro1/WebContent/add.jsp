@@ -22,8 +22,8 @@
 <div class="row"> 
 <div class="col-lg-2"></div>
 <div class="col-lg-8">
-<h4><a href="add.jsp">新增留言</a></h3>
-<h4><a href="MessageHandler/showAll">查看留言</a></h3>
+<h4><a href="${pageContext.request.contextPath}/add.jsp">新增留言</a></h3>
+<h4><a href="${pageContext.request.contextPath}/MessageHandler/showAll">查看留言</a></h3>
 </div>
 </div>
 <div class="row">
@@ -32,7 +32,7 @@
 <div class="row">
 <div class="col-lg-2"></div>
 <div class="col-lg-8" class="form-horizontal">
-<form class="form-group" name="addform" action="MessageHandler/add" method="post">
+<form class="form-group" name="addform" action="${pageContext.request.contextPath}/MessageHandler/add" method="post">
 	<input class="form-control" style="margin: 15px" name="username" placeholder="用户名" ></input>
 	<input class="form-control" style="margin: 15px" name="title" placeholder="主题" ></input>
 	<textarea class="form-control" style="margin: 15px" name="context" placeholder="留言内容" ></textarea>

@@ -28,7 +28,7 @@ public class MessageHandler {
 	private PageService pageService;
 	
 	@RequestMapping(value="/MessageHandler/delete")
-	private String delete(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	public String delete(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		System.out.println("----MessageHandler----delete()----");
 //		ApplicationContext act = new ClassPathXmlApplicationContext("spring.xml");
 //		MessageService messageService = (MessageService) act.getBean("MessageService");
@@ -44,7 +44,7 @@ public class MessageHandler {
 	}
 	
 	@RequestMapping(value="/MessageHandler/showAll")
-	private String showAll(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	public String showAll(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		System.out.println("----MessageHandler----showAll()----");
 //		ApplicationContext act = new ClassPathXmlApplicationContext("spring.xml");
 //		PageService pageService = (PageService) act.getBean("PageService");
@@ -61,7 +61,7 @@ public class MessageHandler {
 		Page pageBean = pageService.getPageBean(countPerPage, currentPage);
 		messages = pageBean.getResults();
 		int pageCount = pageBean.getPageCount();
-		session.setAttribute("pageCount", pageCount);
+		session.setAttribute("pageBean", pageBean);
 		if(messages.isEmpty() || messages == null) {
 			session.setAttribute("note", "¡Ù—‘∞ÂŒ™ø’");
 		} else if ("1".equals(init)) {
@@ -69,20 +69,20 @@ public class MessageHandler {
 		}
 		session.setAttribute("messages", messages);
 //		request.getRequestDispatcher("index.jsp").forward(request, response);
-		return "forward:index.jsp";
+		return "forward:/index.jsp";
 	}
 	
 	@RequestMapping(value="/MessageHandler/add")
-	private String add(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	public String add(Message message, HttpSession session, HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		System.out.println("----MessageHandler----add()----");
 //		ApplicationContext act = new ClassPathXmlApplicationContext("spring.xml");
 //		MessageService messageService = (MessageService) act.getBean("MessageService");
-		HttpSession session = request.getSession();
-		Message message = new Message(
-				request.getParameter("username"),
-				request.getParameter("title"),
-				request.getParameter("context")
-				);
+//		HttpSession session = request.getSession();
+//		Message message = new Message(
+//				request.getParameter("username"),
+//				request.getParameter("title"),
+//				request.getParameter("context")
+//				);
 		int count = messageService.add(message);
 		if(count > 0) {
 			session.setAttribute("note", "¡Ù—‘≥…π¶");
