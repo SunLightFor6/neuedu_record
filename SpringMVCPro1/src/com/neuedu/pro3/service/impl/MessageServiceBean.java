@@ -6,17 +6,21 @@ import java.util.List;
 
 import javax.annotation.Resource;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.neuedu.pro3.bean.Message;
 import com.neuedu.pro3.dao.MessageDao;
 import com.neuedu.pro3.service.MessageService;
 import com.neuedu.pro3.util.JDBCUtil;
+import com.neuedu.pro3.util.Tools;
 
-@Service(value="MessageService")
+//@Service(value="MessageService")
+@Service
 public class MessageServiceBean implements MessageService {
 	
-	@Resource(name="MessageDao")
+//	@Resource(name="MessageDao")
+	@Autowired
 	private MessageDao messageDao;
 	
 	@Override
@@ -25,6 +29,9 @@ public class MessageServiceBean implements MessageService {
 		JDBCUtil db = new JDBCUtil();
 		db.getConnection();
 		int count = 0;
+//		message.setContext(Tools.stringFilter(message.getContext()));
+//		message.setTitle(Tools.stringFilter(message.getTitle()));
+//		message.setUsername(Tools.stringFilter(message.getUsername()));
 		try {
 			count = messageDao.add(message);
 		} catch (SQLException e) {

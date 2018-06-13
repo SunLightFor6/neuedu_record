@@ -14,6 +14,6 @@ public interface PageDao {
 	/**
 	 * 查询结果集
 	 */
-	public List<Message> selectResults(Page page) throws SQLException;
+	public List<Object> selectResults(Page page) throws SQLException;
 	
 }

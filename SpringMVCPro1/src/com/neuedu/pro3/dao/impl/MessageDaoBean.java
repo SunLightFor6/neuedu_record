@@ -10,8 +10,10 @@ import org.springframework.stereotype.Repository;
 import com.neuedu.pro3.bean.Message;
 import com.neuedu.pro3.dao.MessageDao;
 import com.neuedu.pro3.util.JDBCUtil;
+import com.neuedu.pro3.util.Tools;
 
-@Repository(value="MessageDao")
+//@Repository(value="MessageDao")
+@Repository
 public class MessageDaoBean implements MessageDao {
 
 	@Override
@@ -19,8 +21,8 @@ public class MessageDaoBean implements MessageDao {
 		System.out.println("----MessageDaoBean----add()----");
 		JDBCUtil db = new JDBCUtil();
 		db.getConnection();
-		String sql = "insert into message(id, username, title, context, delivertime) values (message_id.nextval, ?, ?, ?, sysdate)";
-		Object[] obj = {message.getUsername(), message.getTitle(), message.getContext()};
+		String sql = "insert into message(id, username, title, context, delivertime, ip) values (message_id.nextval, ?, ?, ?, sysdate, ?)";
+		Object[] obj = {message.getUsername(), message.getTitle(), message.getContext(), message.getIp()};
 		int count = db.executeUpdate(sql, obj);
 		return count;
 	}
@@ -34,7 +36,11 @@ public class MessageDaoBean implements MessageDao {
 		ResultSet rs = db.executeQuery(sql);
 		List<Message> messages = new ArrayList<Message>();
 		while(rs.next()) {
-			messages.add(new Message(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getString(5)));
+			messages.add(new Message(rs.getInt(1), 
+					Tools.stringFilter(rs.getString(2)), 
+					Tools.stringFilter(rs.getString(3)), 
+					Tools.stringFilter(rs.getString(4)), 
+					rs.getString(5)));
 		}
 		rs.close();
 		return messages;

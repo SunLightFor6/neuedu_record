@@ -6,52 +6,91 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>留言板</title>
-<link rel="stylesheet" type="text/css" href="<%=request.getContextPath() %>/css/bootstrap.css">
-<script src="<%=request.getContextPath()%>/js/jquery-3.2.1.min.js"></script>
-<script src="<%=request.getContextPath()%>/js/bootstrap.js"></script>
+<c:set value="${pageContext.request.contextPath}" var="path" scope="page"/>
+<!--<c:set value="10" var="numPerPage" scope="page"/> -->
+<link rel="stylesheet" type="text/css" href="${path}/css/bootstrap.css">
+<script src="${path}/js/jquery-3.2.1.min.js"></script>
+<script src="${path}/js/bootstrap.js"></script>
 </head>
 <body>
+<c:choose>
+<c:when test="${not empty messages}">
+<div class="dropdown" align="right">
+    <button type="button" class="btn dropdown-toggle" id="dropdownMenu1" data-toggle="dropdown">每页显示${pageBean.countPerPage }条记录
+        <span class="caret"></span>
+    </button>
+    <ul class="dropdown-menu pull-right" style="overflow-y: scroll; height: 200px;" role="menu" aria-labelledby="dropdownMenu1">
+        <c:forEach begin="1" end="200" var="i">
+        <li role="presentation">
+            <a role="menuitem" tabindex="-1" href="${pageContext.request.contextPath}/MessageHandler/showAll?page=1&init=1&numPerPage=${i }">--${i }--</a>
+        </li>
+        </c:forEach>
+    </ul>
+</div>
 <table class="table table-striped" align="center">
+<colgroup>
+    <col style="width: 11%">
+    <col style>
+    <col style="width: 16%">
+</colgroup>
 <c:forEach items="${messages}" var="message">
 <thead>
 <tr>
 	<th>id:${message.id}</th>
-	<th>${message.title}</th>
+	<th style="font-size: 16px">${message.title}</th>
 	<th>
-	<form action="${pageContext.request.contextPath}/MessageHandler/delete?id=${message.id}" method="post">
+	<form action="${pageContext.request.contextPath}/MessageHandler/delete?id=${message.id}&page=${pageBean.currentPage }&numPerPage=${pageBean.countPerPage}" method="post">
 		<button>删除</button>
 	</form>
 	</th>
 </tr>
 </thead>
 <tbody>
-<tr class="active" style="height: 40px">
+<tr class="active" style="height: 60px">
 	<td>${message.username}</td>
-	<td>${message.context }</td>
+	<td style="margin: 5px; word-break:break-all; word-wrap:break-all;	">${message.context }</td>
 	<td>${message.delivertime }</td>
 </tr>
 </tbody>
 </c:forEach>
 </table>
-<c:choose>
-<c:when test="${not empty messages}">
 <ul class="pagination">
-    <li><a href="${pageContext.request.contextPath}/MessageHandler/showAll?page=1&init=1">&laquo;</a></li>
-    <li><a href="${pageContext.request.contextPath}/MessageHandler/showAll?page=${pageBean.currentPage==1?1:(pageBean.currentPage-1)}&init=1"><</a></li>
-	
+	<!-- 首页 -->
+    <li><a href="${pageContext.request.contextPath}/MessageHandler/showAll?page=1&init=1&numPerPage=${pageBean.countPerPage }">&laquo;</a></li>
+    <!-- 上一页 -->
+    <c:choose>
+    <c:when test="${pageBean.currentPage == 1 }">
+   		<li class="disabled"><a><</a></li>
+	</c:when>
+	<c:otherwise>
+	   	<li><a href="${pageContext.request.contextPath}/MessageHandler/showAll?page=${pageBean.currentPage==1?1:(pageBean.currentPage-1)}&init=1&numPerPage=${pageBean.countPerPage }"><</a></li>
+	</c:otherwise>
+	</c:choose>
+	<!-- 中间的页码 -->
 	<c:if test="${pageBean.pageBegin != -1 }">
 	<c:forEach begin="${pageBean.pageBegin }" end="${pageBean.currentPage - 1 }" var="pagenum">
-    	<li><a href="${pageContext.request.contextPath}/MessageHandler/showAll?page=${pagenum}&init=1">${pagenum}</a></li>
+    	<li><a href="${pageContext.request.contextPath}/MessageHandler/showAll?page=${pagenum}&init=1&numPerPage=${pageBean.countPerPage }">${pagenum}</a></li>
 	</c:forEach>
 	</c:if>
-	<li class="active"><a href="${pageContext.request.contextPath}/MessageHandler/showAll?page=${pageBean.currentPage }&init=1">${pageBean.currentPage}</a></li>
+	<!-- 当前页 -->
+	<li class="active"><a>${pageBean.currentPage}</a></li>
+	<!-- 当前页之后的页码 -->
 	<c:if test="${pageBean.pageEnd != -1 }">
 	<c:forEach begin="${pageBean.currentPage + 1 }" end="${pageBean.pageEnd }" var="pagenum">
-   		<li><a href="${pageContext.request.contextPath}/MessageHandler/showAll?page=${pagenum}&init=1">${pagenum}</a></li>
+   		<li><a href="${pageContext.request.contextPath}/MessageHandler/showAll?page=${pagenum}&init=1&numPerPage=${pageBean.countPerPage }">${pagenum}</a></li>
 	</c:forEach>
 	</c:if>
-	<li><a href="${pageContext.request.contextPath}/MessageHandler/showAll?page=${pageBean.currentPage==pageBean.pageCount?pageBean.pageCount:(pageBean.currentPage+1)}&init=1">></a></li>
-    <li><a href="${pageContext.request.contextPath}/MessageHandler/showAll?page=${pageBean.pageCount }&init=1">&raquo;</a></li>
+	<!-- 下一页 -->
+	<c:choose>
+    <c:when test="${pageBean.currentPage == pageBean.pageCount }">
+   		<li class="disabled"><a>></a></li>
+	</c:when>
+	<c:otherwise>
+		<li><a href="${pageContext.request.contextPath}/MessageHandler/showAll?page=${pageBean.currentPage+1}&init=1&numPerPage=${pageBean.countPerPage }">></a></li>
+	</c:otherwise>
+	</c:choose>
+    <!-- 尾页 -->
+    <li><a href="${pageContext.request.contextPath}/MessageHandler/showAll?page=${pageBean.pageCount }&init=1&numPerPage=${pageBean.countPerPage }">&raquo;</a></li>
 </ul>
 <hr>
 </c:when>

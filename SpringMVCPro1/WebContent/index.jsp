@@ -6,9 +6,10 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <title>留言板</title>
-<link rel="stylesheet" type="text/css" href="<%=request.getContextPath() %>/css/bootstrap.css">
-<script src="<%=request.getContextPath()%>/js/jquery-3.2.1.min.js"></script>
-<script src="<%=request.getContextPath()%>/js/bootstrap.js"></script>
+<c:set value="${pageContext.request.contextPath}" var="path" scope="page"/>
+<link rel="stylesheet" type="text/css" href="${path}/css/bootstrap.css">
+<script src="${path}/js/jquery-3.2.1.min.js"></script>
+<script src="${path}/js/bootstrap.js"></script>
 </head>
 <body>
 <div class="container">

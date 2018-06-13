@@ -14,7 +14,7 @@ public interface PageService {
 	/**
 	 * 查询结果集
 	 */
-	public List<Message> selectResults(Page page);
+	public List<Object> selectResults(Page page);
 	/**
 	 * 将结果集、总记录数等封装到对象中，返回
 	 * @param countPerPage

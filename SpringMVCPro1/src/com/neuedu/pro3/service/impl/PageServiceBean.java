@@ -6,6 +6,7 @@ import java.util.List;
 
 import javax.annotation.Resource;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.neuedu.pro3.bean.Message;
@@ -14,10 +15,12 @@ import com.neuedu.pro3.dao.PageDao;
 import com.neuedu.pro3.service.PageService;
 import com.neuedu.pro3.util.JDBCUtil;
 
-@Service(value="PageService")
+//@Service(value="PageService")
+@Service
 public class PageServiceBean implements PageService {
 
-	@Resource(name="PageDao")
+//	@Resource(name="PageDao")
+	@Autowired
 	private PageDao pageDao;	
 	
 	@Override
@@ -38,13 +41,13 @@ public class PageServiceBean implements PageService {
 	}
 
 	@Override
-	public List<Message> selectResults(Page page) {
+	public List<Object> selectResults(Page page) {
 		System.out.println("----PageServiceBean----selectResults()----");
 		JDBCUtil db = new JDBCUtil();
 		db.getConnection();
-		List<Message> results = new ArrayList<Message>();
+		List<Object> results = new ArrayList<Object>();
 		try {
-			System.out.println("----" + page.getCurrentPage() + " " + page.getCountPerPage());
+			System.out.println("----currentPage " + page.getCurrentPage() + " countPerPage " + page.getCountPerPage());
 			results = pageDao.selectResults(page);
 			System.out.println("----PageServiceBean----selectResults()----has " + results.size());
 		} catch (SQLException e) {
@@ -93,7 +96,9 @@ public class PageServiceBean implements PageService {
 	@Override
 	public Page getPageBean(int countPerPage, int currentPage) {
 		System.out.println("----PageServiceBean----getPageBean()----");
-		Page pageBean = new Page(currentPage, countPerPage);
+		Page pageBean = Page.getPageBean();
+		pageBean.setCurrentPage(currentPage);
+		pageBean.setCountPerPage(countPerPage);
 		pageBean.setCount(this.selectCount(pageBean));
 		int pageCount = -1;
 		if (pageBean.getCount() % pageBean.getCountPerPage() == 0) {
@@ -102,6 +107,13 @@ public class PageServiceBean implements PageService {
 			pageCount =  1 + pageBean.getCount() / pageBean.getCountPerPage();
 		}
 		pageBean.setPageCount(pageCount);
+		List<Object> results = this.selectResults(pageBean);
+		if (results.size() == 0) {
+			if (currentPage >= pageCount) {
+				pageBean.setCurrentPage(currentPage-1);
+				results = this.selectResults(pageBean);
+			}
+		}
 		pageBean.setResults(this.selectResults(pageBean));
 		pageBean.setPageBegin(this.getPageBegin(pageBean));
 		pageBean.setPageEnd(this.getPageEnd(pageBean));

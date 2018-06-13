@@ -11,9 +11,10 @@ import com.neuedu.pro3.bean.Message;
 import com.neuedu.pro3.bean.Page;
 import com.neuedu.pro3.dao.PageDao;
 import com.neuedu.pro3.util.JDBCUtil;
+import com.neuedu.pro3.util.Tools;
 
-//@Repository	
-@Repository(value="PageDao")
+@Repository	
+//@Repository(value="PageDao")
 public class PageDaoBean implements PageDao {
 
 	@Override
@@ -22,6 +23,7 @@ public class PageDaoBean implements PageDao {
 		JDBCUtil db = new JDBCUtil();
 		db.getConnection();
 		String sql = "select count(1) total from (select * from message)";
+		System.out.println(sql);
 		ResultSet rs = db.executeQuery(sql);
 		int count = -1;
 		while(rs.next()) {
@@ -32,9 +34,9 @@ public class PageDaoBean implements PageDao {
 	}
 
 	@Override
-	public List<Message> selectResults(Page page) throws SQLException {
+	public List<Object> selectResults(Page page) throws SQLException {
 		System.out.println("----PageDaoBean----selectResults()----");
-		List<Message> results = new ArrayList<Message>();
+		List<Object> results = new ArrayList<Object>();
 		JDBCUtil db = new JDBCUtil();
 		db.getConnection();
 		String sql = "select * from ("
@@ -43,9 +45,14 @@ public class PageDaoBean implements PageDao {
 					+ "from message order by id desc) t "
 					+ "where rownum<=" + page.getCurrentPage() * page.getCountPerPage() + ")  "
 				+ "where rn >" + ((page.getCurrentPage()-1) * page.getCountPerPage());
+		System.out.println(sql);
 		ResultSet rs = db.executeQuery(sql);
 		while(rs.next()) {
-			results.add(new Message(rs.getInt(2), rs.getString(3), rs.getString(4), rs.getString(5), rs.getString(6)));
+			results.add(new Message(rs.getInt(2), 
+					Tools.stringFilter(rs.getString(3)), 
+					Tools.stringFilter(rs.getString(4)), 
+					Tools.stringFilter(rs.getString(5)), 
+					rs.getString(6)));
 		}
 		rs.close();
 		return results;

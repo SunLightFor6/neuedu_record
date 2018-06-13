@@ -6,6 +6,7 @@ public class Message {
 	private String title;
 	private String context;
 	private String delivertime;
+	private String ip;
 	
 	public Message(){}
 	
@@ -82,6 +83,19 @@ public class Message {
 	 */
 	public void setdelivertime(String delivertime) {
 		this.delivertime = delivertime;
+	}
+	/**
+	 * @return the ip
+	 */
+	public String getIp() {
+		return ip;
+	}
+
+	/**
+	 * @param ip the ip to set
+	 */
+	public void setIp(String ip) {
+		this.ip = ip;
 	}
 
 }

@@ -4,6 +4,7 @@ import java.util.List;
 
 /**
  * 分页bean 存储分页相关的内容
+ * 改成单例模式
  * @author Sun
  */
 
@@ -27,7 +28,7 @@ public class Page {
 	/**
 	 * 当前查询的结果集
 	 */
-	List<Message> results;
+	List<Object> results;
 	/**
 	 * 当前页面区间头
 	 */
@@ -36,6 +37,8 @@ public class Page {
 	 * 当前页面区间尾
 	 */
 	int pageEnd;
+	
+	private static Page pageBean = new Page();
 	
 	/**
 	 * @return the pageBegin
@@ -65,9 +68,11 @@ public class Page {
 		this.pageEnd = pageEnd;
 	}
 
-	Page() {	}
-
-	public Page(int currentPage, int countPerPage) {
+	private Page(){
+		this.currentPage = -1;
+		this.countPerPage = -1;
+	}
+	private Page(int currentPage, int countPerPage) {
 		this.currentPage = currentPage;
 		this.countPerPage = countPerPage;
 	}
@@ -131,15 +136,22 @@ public class Page {
 	/**
 	 * @return the results
 	 */
-	public List<Message> getResults() {
+	public List<Object> getResults() {
 		return results;
 	}
 
 	/**
 	 * @param results the results to set
 	 */
-	public void setResults(List<Message> results) {
+	public void setResults(List<Object> results) {
 		this.results = results;
+	}
+	
+	/**
+	 * 单例 获取实例
+	 */
+	public static Page getPageBean() {
+		return pageBean;
 	}
 	
 }
