@@ -101,7 +101,7 @@ public class UserInfoServlet extends HttpServlet {
 	 */
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		req.setCharacterEncoding("utf-8");//设置请求编码
+//		req.setCharacterEncoding("utf-8");//设置请求编码
 		doGet(req, resp);
 	}
 

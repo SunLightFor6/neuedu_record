@@ -9,7 +9,7 @@
 <body>
 <h1 align="center">给我转账！！！</h1>
 <hr>
-<form name="loginform" action="servlet/UserInfoServlet?method=login" method="post">
+<form name="loginform" action="login/LoginServlet" method="post">
 	账号: <input type="text" name="username" />
 	<br>
 	密码: <input type="password" name="password" />
