@@ -11,6 +11,9 @@
 		select id, username, title, context, to_char(delivertime, 'yyyy-MM-dd hh24:mi:ss') delivertime, ip from message where id=#{id}
 	</select>
 	
+	<select id="add" parameterType="com.neuedu.pro3.bean.Message" resultType="int">
+	
+	</select>
 	
 	
 	<!-- 

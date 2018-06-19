@@ -1,5 +1,0 @@
-package com.neuedu.pro1.dao;
-
-public interface UserInfoDao {
-
-}

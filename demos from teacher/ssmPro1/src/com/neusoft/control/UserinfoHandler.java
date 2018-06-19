@@ -24,4 +24,19 @@ public class UserinfoHandler {
 		return "forward:/show.jsp";
 	}
 	
+	@RequestMapping(value="/test/UserinfoHandler_zhuanZhang")
+	public String zhuanZhang(HttpServletRequest request,String userNameA,String userNameB,int num){
+		System.out.println("....UserinfoHandler....findAll()........");
+
+		boolean isOK=userinfoService.zhuanZhang(userNameA, userNameB, num);
+		String msg="";
+		if(isOK){
+			msg="zzOK";
+		}else{
+			msg="zz²»OK";
+		}
+		request.setAttribute("msg", msg);
+		return "forward:/test/UserinfoHandler_findAll";
+	}
+	
 }

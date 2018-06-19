@@ -1,9 +1,0 @@
-package com.neuedu.pro1.dao;
-
-public class UserInfoDao {
-
-	public UserInfoDao() {
-		// TODO Auto-generated constructor stub
-	}
-
-}

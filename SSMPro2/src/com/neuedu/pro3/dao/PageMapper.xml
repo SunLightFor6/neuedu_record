@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.neuedu.pro3.dao.PageDao">
+	<select id="selectCount" resultType="int">
+		select count(1) total from (select * from message)
+	</select>	
+	<select id="selectResults" parameterType="com.neuedu.pro3.bean.Page" resultType="com.neuedu.pro3.bean.Message">
+		select * from (
+			select rownum rn,t.* 
+			from (
+				select id, username, title, context, to_char(delivertime, 'yyyy-MM-dd hh24:mi:ss')
+				from message order by id desc ) t
+			where rownum&lt;=#{currentPage}*#{countPerPage} )
+		where rn &gt; (#{currentPage}-1) * ${countPerPage}
+	</select>
+</mapper>
+

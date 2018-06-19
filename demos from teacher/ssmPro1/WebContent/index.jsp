@@ -10,5 +10,6 @@
 <h1 align="center">SSM应用一</h1>
 <hr>
 <h3>1.<a href="<%=request.getContextPath() %>/test/UserinfoHandler_findAll">控制器UserinfoHandler_findAll</h3>
+<h3>2.<a href="<%=request.getContextPath() %>/zhuanZhang.jsp">转账业务</h3>
 </body>
 </html>

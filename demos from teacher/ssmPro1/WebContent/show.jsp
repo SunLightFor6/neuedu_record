@@ -12,6 +12,8 @@
 <hr>
 <h3>1.<a href="<%=request.getContextPath() %>/test/UserinfoHandler_findAll">控制器UserinfoHandler_findAll</a></h3>
 <hr>
+<h2 align="center">${msg }</h2>
+<hr>
 <c:forEach items="${requestScope.list }" var="u">
 <h3>id:${u.id }</h3>
 <h3>userName:${u.username }</h3>

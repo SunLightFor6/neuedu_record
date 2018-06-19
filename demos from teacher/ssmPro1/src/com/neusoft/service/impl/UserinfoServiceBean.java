@@ -39,8 +39,39 @@ public class UserinfoServiceBean implements UserinfoService {
 
 	@Override
 	public boolean zhuanZhang(String name_a, String name_b, int num) {
-		// TODO Auto-generated method stub
-		return false;
+		System.out.println("...UserinfoServiceBean......findAll().......");
+		boolean isOK=false;
+		SqlSession session=SqlSessionUtil.getSession();
+		UserinfoMapper mapper=session.getMapper(UserinfoMapper.class);
+		try {
+//			int count1=session.update("UserinfoMapper.jianNum","T");
+//			int count2=session.update("UserinfoMapper.jiaNum","T");
+			Userinfo u1=new Userinfo();
+			u1.setUsername(name_a);
+			u1.setNum(num);
+			
+			Userinfo u2=new Userinfo();
+			u2.setUsername(name_b);
+			u2.setNum(num);
+			
+			int count1=mapper.jianNum(u1);
+			int count2=mapper.jiaNum(u2);
+			if(count1>0&&count2>0){
+				session.commit();
+				System.out.println("转账成功,事务提交");
+				isOK=true;
+			}else{
+				session.rollback();
+				System.out.println("转账失败,事务回滚1");
+				isOK=false;
+			}
+		} catch (Exception e) {
+			session.rollback();
+			System.out.println("转账失败,事务回滚2");
+			isOK=false;
+			e.printStackTrace();
+		}
+		return isOK;
 	}
 
 }

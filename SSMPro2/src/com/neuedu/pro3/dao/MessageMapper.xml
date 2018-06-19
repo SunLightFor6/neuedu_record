@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.neuedu.pro3.dao.MessageDao">
+	<insert id="add" parameterType="com.neuedu.pro3.bean.Message" >
+		insert into message(id, username, title, context, delivertime, ip) values (message_id.nextval, #{username}, #{title}, #{context}, sysdate, #{ip})
+	</insert>
+	<delete id="delete" parameterType="int">
+		delete from message where id=#{messageId}
+	</delete>
+</mapper>

@@ -12,6 +12,9 @@
 	<update id="jianNum" parameterType="com.neusoft.po.Userinfo">
 		update userinfo set num=num - #{num} where username = #{username}
 	</update>
+
+
+	
 </mapper>
 <!--  
 	<select id="findCount"  resultType="int" >

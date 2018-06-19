@@ -1,9 +1,0 @@
-package com.neuedu.pro1.dao.impl;
-
-public class UserInfoDaoBean {
-
-	public UserInfoDaoBean() {
-		// TODO Auto-generated constructor stub
-	}
-
-}
