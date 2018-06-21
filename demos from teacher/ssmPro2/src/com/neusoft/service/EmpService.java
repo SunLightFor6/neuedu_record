@@ -9,4 +9,6 @@ public interface EmpService {
 	public List<Emp> findAll();
 	public List<EmpDeptVO> findEmpDeptAll();
 	public List<Emp> findEmpDeptAll2();
+	public List<Emp> findBetween();
+	public List<Emp> maxEmpsOfDept(int deptno);
 }

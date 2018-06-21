@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.neusoft.mapper.DeptMapper">
+
+		<!-- 配置 (一对多) 关系的映射类型 -->
+	<resultMap type="com.neusoft.po.Dept" id="dept_emp_map">
+		<id property="deptno" column="deptno" />
+		<result property="dname" column="dname" />
+		<result property="loc" column="loc" />
+		<collection property="emps" ofType="com.neusoft.po.Emp">
+			<id property="empno" column="empno" />
+			<result property="ename" column="ename" />
+			<result property="comm" column="comm" />
+			<result property="hiredate" column="hiredate" />
+			<result property="job" column="job" />
+			<result property="mgr" column="mgr" />
+			<result property="sal" column="sal" />
+			<result property="deptno" column="deptno" />
+		</collection>
+	</resultMap>
+	
+	<select id="findDeptEmps" parameterType="int" resultMap="dept_emp_map">
+		select dept.deptno, dept.dname, dept.loc, emp.*
+		from dept left join emp
+		on dept.deptno=emp.deptno
+		where dept.deptno=#{deptno}
+	</select>
+	
+	<select id="deptsWithMax" resultType="com.neusoft.po.Dept">
+		
+	</select>
+	
+</mapper>

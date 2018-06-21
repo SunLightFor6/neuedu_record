@@ -65,4 +65,38 @@ public class EmpServiceBean implements EmpService {
 		return list;
 	}
 
+	@Override
+	public List<Emp> findBetween() {
+		System.out.println("...EmpServiceBean...findBetween().....");
+		List<Emp> emps;
+		SqlSession session = SqlSessionUtil.getSession();
+		EmpMapper mapper = session.getMapper(EmpMapper.class);
+		try {
+			emps = mapper.findBetween();
+		} catch (Exception e) {
+			emps = null;
+			e.printStackTrace();
+		} finally {
+			session.close();
+		}
+		return emps;
+	}
+
+	@Override
+	public List<Emp> maxEmpsOfDept(int deptno) {
+		System.out.println("...EmpServiceBean...maxEmpsOfDept().....");
+		List<Emp> emps;
+		SqlSession session = SqlSessionUtil.getSession();
+		EmpMapper mapper = session.getMapper(EmpMapper.class);
+		try {
+			emps = mapper.maxEmpsOfDept(deptno);
+		} catch (Exception e) {
+			emps = null;
+			e.printStackTrace();
+		} finally {
+			session.close();
+		}
+		return emps;
+	}
+
 }

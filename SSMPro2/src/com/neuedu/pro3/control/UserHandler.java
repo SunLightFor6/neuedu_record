@@ -21,7 +21,13 @@ public class UserHandler {
 	public String login(User user, HttpSession session, HttpServletRequest req, HttpServletResponse resp){
 		System.out.println("--- UserHandler -- login() ---");
 		session.setMaxInactiveInterval(3000);
-		boolean isLogin = Boolean.parseBoolean(userService.login(user) + "");
+		boolean isLogin;
+		try {
+			isLogin = Boolean.parseBoolean(userService.login(user) + "");
+		} catch (Exception e) {
+			isLogin = false;
+			e.printStackTrace();
+		}
 		if (isLogin) {
 			session.setAttribute("note", "µÇÂ¼³É¹¦");
 			session.setAttribute("isLogin", true);

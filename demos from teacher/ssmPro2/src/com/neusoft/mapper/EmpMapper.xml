@@ -9,7 +9,7 @@
 		<id property="empno" column="empno" />
 		<result property="ename" column="ename" />
 		<result property="comm" column="comm" />
-		<result property="dirdate" column="dirdate" />
+		<result property="hiredate" column="hiredate" />
 		<result property="job" column="job" />
 		<result property="mgr" column="mgr" />
 		<result property="sal" column="sal" />
@@ -36,60 +36,28 @@
 		from emp left join dept 
 		on emp.deptno=dept.deptno
 	</select>
-
-
-
+	
+	<!-- 查询工资2500-5000之间的人的信息 -->
+	<select id="findBetween" resultType="com.neusoft.po.Emp">
+		select e.*
+		from (
+			select emp.*
+			from emp
+			where sal&lt;5000
+		) e
+		where sal>2500
+	</select>
+	
+	<!-- 查询每个部门下工资最高的人是谁 -->
+	<select id="maxEmpsOfDept" parameterType="int" resultType="com.neusoft.po.Emp">
+	select *
+    from emp
+    where deptno=#{deptno }
+    and sal=(
+    select max(sal)
+    from dept left join emp
+    on dept.deptno=emp.deptno
+    where dept.deptno=#{deptno }
+    )
+	</select>
 </mapper>
-<!--  
-	<select id="findCount"  resultType="int" >
-		select count(*) from message 
-	</select>
-	<select id="findNameById" parameterType="int" resultType="java.lang.String" >
-		select name from message where id=#{id}
-	</select>
-	
-	<select id="findMessageById" parameterType="int" resultType="com.neusoft.bean.Message">
-		select * from message where id=#{id}
-	</select>
-	<select id="findMessageById2" parameterType="int" resultType="com.neusoft.bean.Message">
-		select id,name, to_char(time,'yyyy-MM-dd hh:mi:ss') time  from message where id=#{id}
-	</select>
-	
-	<select id="findAll" resultType="com.neusoft.bean.Message">
-		select * from message 
-	</select>
-	<select id="findAll2" resultType="com.neusoft.bean.Message">
-		select id,name,title from message 
-	</select>
-	<select id="findMessageByTj" parameterType="com.neusoft.bean.Message" resultType="com.neusoft.bean.Message" >
-		select * from message where name =#{name} and id > #{id}
-	</select>
-	
-	<insert id="addMessage" parameterType="com.neusoft.bean.Message">
-		insert into message (id,name,title,time,contxt) values (seq_message.nextval,#{name},#{title},sysdate,#{contxt})
-	</insert>
-	
-	<select id="getUnameByID" parameterType="int" resultType="java.lang.String" >
-		select username from userinfo where id=#{id}
-	</select>
-	<select id="getCount"  resultType="int" >
-		select count(*) from userinfo 
-	</select>
-	<select id="getUserinfoById" parameterType="int" resultType="com.neusoft.bean.Userinfo">
-		select * from userinfo where id=#{id}
-	</select>
-	<select id="getUserinfoById2" parameterType="int" resultType="com.neusoft.bean.Userinfo">
-		select username,pwd from userinfo where id=#{id}
-	</select>
-	<select id="findAll" resultType="com.neusoft.bean.Userinfo">
-		select * from userinfo 
-	</select>
-	<select id="findUserByVo" parameterType="com.neusoft.vo.LoginVO" resultType="com.neusoft.bean.Userinfo" >
-		select * from userinfo where username=#{userName} and pwd=#{pwd}
-	</select>
-	
-	<insert id="addUserinfo" parameterType="com.neusoft.bean.Userinfo">
-		insert into userinfo(id,username,pwd)  values (#{id} ,#{username}  , #{pwd})
-	</insert>
-	 -->
-

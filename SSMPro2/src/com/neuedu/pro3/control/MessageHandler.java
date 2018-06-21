@@ -34,7 +34,13 @@ public class MessageHandler {
 			throws ServletException, IOException {
 		System.out.println("----MessageHandler----delete()----");
 		HttpSession session = request.getSession();
-		int count = messageService.delete(Integer.parseInt(request.getParameter("id")));
+		int count;
+		try {
+			count = messageService.delete(Integer.parseInt(request.getParameter("id")));
+		} catch (Exception e) {
+			count = -1;
+			e.printStackTrace();
+		}
 		if (count > 0) {
 			session.setAttribute("note", "删除成功");
 		} else {
@@ -67,9 +73,15 @@ public class MessageHandler {
 				countPerPage = 10;
 			}
 		}
-
-		Page pageBean = pageService.getPageBean(countPerPage, currentPage);
-		messages = pageService.selectResults(pageBean);
+		Page pageBean;
+		try {
+			pageBean = pageService.getPageBean(countPerPage, currentPage);
+			messages = pageService.selectResults(pageBean);
+		} catch (Exception e) {
+			pageBean = null;
+			messages = null;
+			e.printStackTrace();
+		}
 		int pageCount = pageBean.getPageCount();
 		session.setAttribute("pageBean", pageBean);
 		if (messages.isEmpty() || messages == null) {
@@ -87,10 +99,16 @@ public class MessageHandler {
 		System.out.println("----MessageHandler----add()----");
 		message.setIp(this.getIpAddress(request));
 		//对传入的数据进行处理
-//		message.setTitle(Tools.stringFilter(message.getTitle()));
-//		message.setContext(Tools.stringFilter(message.getContext()));
-//		message.setUsername(Tools.stringFilter(message.getUsername()));
-		int count = messageService.add(message);
+		message.setTitle(Tools.stringFilter(message.getTitle()));
+		message.setContext(Tools.stringFilter(message.getContext()));
+		message.setUsername(Tools.stringFilter(message.getUsername()));
+		int count;
+		try {
+			count = messageService.add(message);
+		} catch (Exception e) {
+			count = -1;
+			e.printStackTrace();
+		}
 		if (count > 0) {
 			session.setAttribute("note", "留言成功");
 		} else {

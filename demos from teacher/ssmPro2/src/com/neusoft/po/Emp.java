@@ -5,14 +5,13 @@ public class Emp {
 	private String ename;
 	private String job;
 	private int mgr;
-	private String diredate;
+	private String hiredate;
 	private float sal;
 	private float comm;
 	private int deptno;
 	
+	//∂‡∂‘“ª
 	private Dept dept=new Dept();
-	
-	
 	
 	public Dept getDept() {
 		return dept;
@@ -44,11 +43,11 @@ public class Emp {
 	public void setMgr(int mgr) {
 		this.mgr = mgr;
 	}
-	public String getDiredate() {
-		return diredate;
+	public String getHiredate() {
+		return hiredate;
 	}
-	public void setDiredate(String diredate) {
-		this.diredate = diredate;
+	public void setHiredate(String hiredate) {
+		this.hiredate = hiredate;
 	}
 	public float getSal() {
 		return sal;

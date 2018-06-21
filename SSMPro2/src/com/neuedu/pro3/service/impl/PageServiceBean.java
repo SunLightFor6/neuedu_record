@@ -17,43 +17,31 @@ import com.neuedu.pro3.service.PageService;
 import com.neuedu.pro3.util.JDBCUtil;
 import com.neuedu.pro3.util.SqlSessionUtil;
 import com.neuedu.pro3.util.Tools;
+import com.sun.javafx.collections.MappingChange.Map;
 
 @Service
 public class PageServiceBean implements PageService {
+	
+	@Autowired
+	private PageDao pageDao;
+	
 	@Override
-	public int selectCount() {
+	public int selectCount() throws Exception {
 		System.out.println("----PageServiceBean----selectCount()----");
-		SqlSession session = SqlSessionUtil.getSession();
 		int count;
-		PageDao mapper = session.getMapper(PageDao.class);
-		try {
-			count = mapper.selectCount();
-		} catch (SQLException e) {
-			count = -1;
-			e.printStackTrace();
-		} finally {
-			session.close();
-		}
+		count = pageDao.selectCount();
 		return count;
 	}
 
 	@Override
-	public List<Object> selectResults(Page page) {
+	public List<Object> selectResults(Page page) throws Exception {
 		System.out.println("----PageServiceBean----selectResults()----");
 		List<Object> results = new ArrayList<Object>();
-		SqlSession session = SqlSessionUtil.getSession();
-		PageDao mapper = session.getMapper(PageDao.class);
-		try {
-			results = mapper.selectResults(page);
-		} catch (SQLException e) {
-			e.printStackTrace();
-		} finally {
-			session.close();
-		}
+		results = pageDao.selectResults(page);
 		//处理一下已经在数据库中存在的异常数据 输出的时候操作
 		for(Object obj : results) {
 			Message message = (Message) obj;
-			if(message.getId() > 1200) {
+			if(message.getId() > 1200 && message.getId() <= 1300) {
 				message.setTitle(Tools.stringFilter(message.getTitle()));
 				message.setContext(Tools.stringFilter(message.getContext()));
 				message.setUsername(Tools.stringFilter(message.getUsername()));
@@ -98,7 +86,7 @@ public class PageServiceBean implements PageService {
 	}
 
 	@Override
-	public Page getPageBean(int countPerPage, int currentPage) {
+	public Page getPageBean(int countPerPage, int currentPage) throws Exception {
 		System.out.println("----PageServiceBean----getPageBean()----");
 		Page pageBean = Page.getPageBean();
 		pageBean.setCurrentPage(currentPage);
@@ -121,5 +109,18 @@ public class PageServiceBean implements PageService {
 		pageBean.setPageBegin(this.getPageBegin(pageBean));
 		pageBean.setPageEnd(this.getPageEnd(pageBean));
 		return pageBean;
+	}
+
+	@Override
+	public List<Message> queryResults(Map m)  throws Exception {
+		System.out.println("----PageServiceBean----queryResults()----");
+		List<Message> results;
+		try {
+			results = pageDao.queryResults(m);
+		} catch (Exception e) {
+			results = null;
+			e.printStackTrace();
+		}
+		return results;
 	}
 }

@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.2.0.js"></script>
+<script type="text/javascript">
+	$(function() {
+		
+		//1. 发送ajax请求
+			/*
+				url 路径 相对路径(相对当前url) 
+						绝对路径(斜线开头，斜线代表当前站点，就是ip:port/)
+			*/
+		$.ajax( {
+			url: "test/ajax.action",
+			success: function(data) {
+				//回调函数  请求结束之后执行的函数
+				//console.log(data);
+				
+				//每一行记录生成一个tr
+				for(var i=0; i<data.length; i++) {
+					var tr = '<tr>';
+					tr += '<td>' + data[i].id + '</td>';
+					tr += '<td>' + data[i].name + '</td>';
+					tr += '<td>' + data[i].password + '</td>';
+					tr += '<td>' + data[i].balance + '</td>';
+					tr += '<td>' + data[i].other + '</td>';
+					tr += '</tr>';
+					
+					$("#tab").append(tr);
+				}
+			}
+		} )
+	})
+</script>
+</head>
+<body>
+<table id="tab">
+	<tr>
+		<th>id</th>
+		<th>name</th>
+		<th>password</th>
+		<th>balance</th>
+		<th>other</th>
+	</tr>
+</table>
+</body>
+</html>

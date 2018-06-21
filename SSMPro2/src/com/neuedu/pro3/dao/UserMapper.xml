@@ -6,4 +6,10 @@
 	<select id="getPasswordByName" parameterType="java.lang.String" resultType="java.lang.String">
 		select password from userinfo where name=#{name}
 	</select>
+	<select id="listAll" resultType="User">
+		select * from userinfo order by id
+	</select>
+	<insert id="addUser" parameterType="User">
+		insert into userinfo(id, name, password, balance, other) values (user_id.nextval, #{name}, #{password}, #{balance}, #{other})
+	</insert>
 </mapper>

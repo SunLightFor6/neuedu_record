@@ -1,9 +1,29 @@
 package com.neusoft.po;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class Dept {
 	private int deptno;
 	private String dname;
 	private String loc;
+	
+	private List<Emp> emps = new ArrayList<>();
+	
+	private Emp maxEmp = new Emp();
+	
+	public Emp getMaxEmp() {
+		return maxEmp;
+	}
+	public void setMaxEmp(Emp maxEmp) {
+		this.maxEmp = maxEmp;
+	}
+	public List<Emp> getEmps() {
+		return emps;
+	}
+	public void setEmps(List<Emp> emps) {
+		this.emps = emps;
+	}
 	public int getDeptno() {
 		return deptno;
 	}

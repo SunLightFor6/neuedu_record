@@ -8,6 +8,32 @@ public class User {
 	private int id;
 	private String name;
 	private String password;
+	private double balance;
+	private String other;
+	/**
+	 * @return the balance
+	 */
+	public double getBalance() {
+		return balance;
+	}
+	/**
+	 * @param balance the balance to set
+	 */
+	public void setBalance(double balance) {
+		this.balance = balance;
+	}
+	/**
+	 * @return the other
+	 */
+	public String getOther() {
+		return other;
+	}
+	/**
+	 * @param other the other to set
+	 */
+	public void setOther(String other) {
+		this.other = other;
+	}
 	/**
 	 * @return the id
 	 */

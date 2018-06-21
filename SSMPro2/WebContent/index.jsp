@@ -41,6 +41,9 @@
 				<h4>
 					<a href="${path }/MessageHandler/showAll?init=1">查看留言</a>
 				</h4>
+				<h4>
+					<a href="${path }/query.jsp">查询留言</a>
+				</h4>
 			</div>
 		</div>
 		<div class="row">

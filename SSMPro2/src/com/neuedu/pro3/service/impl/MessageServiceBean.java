@@ -17,56 +17,49 @@ import com.neuedu.pro3.util.JDBCUtil;
 import com.neuedu.pro3.util.SqlSessionUtil;
 import com.neuedu.pro3.util.Tools;
 
-//@Service(value="MessageService")
 @Service
-public class MessageServiceBean implements MessageService {
-	
+public class MessageServiceBean implements MessageService{
+
+	@Autowired
+	private MessageDao messageDao;
+
 	@Override
-	public int add(Message message) {
+	public int add(Message message) throws Exception {
 		System.out.println("----MessageServiceBean----add()----");
 		int c = -1;
-		SqlSession session = SqlSessionUtil.getSession();
-		MessageDao messageDao = session.getMapper(MessageDao.class);
 		try {
 			c = messageDao.add(message);
 			if (c > 0) {
 				System.out.println("----MessageServiceBean----add()----commit");
-				session.commit();
 			} else {
 				System.out.println("----MessageServiceBean----add()----rollback");
-				session.rollback();
 			}
-		} catch (SQLException e) {
-			session.rollback();
+		} catch (Exception e) {
+			System.out.println("----MessageServiceBean----add()----rollback");
 			e.printStackTrace();
-		} catch (NullPointerException ne) {
-			session.rollback();
-		}finally {
-			session.close();
 		}
+		
+//		Integer.parseInt("sss");
+//		Message m = new Message();
+//		m.setTitle("test");
+//		m.setUsername("test");
+//		m.setContext("test");
+//		try {
+//			messageDao.add(m);
+//		} catch (Exception e) {
+//			e.printStackTrace();
+//		}
 		return c;
 	}
 
 	@Override
-	public int delete(int messageid) {
+	public int delete(int messageid) throws Exception{
 		System.out.println("----MessageServiceBean----delete()----");
-		SqlSession session = SqlSessionUtil.getSession();
-		MessageDao messageDao = session.getMapper(MessageDao.class);
 		int count = -1;
 		try {
 			count = messageDao.delete(messageid);
-			if (count > 0) {
-				session.commit();
-			} else {
-				session.rollback();
-			}
-		} catch (SQLException e) {
-			session.rollback();
+		} catch (Exception e) {
 			e.printStackTrace();
-		} catch (NullPointerException ne) {
-			session.rollback();
-		}finally {
-			session.close();
 		}
 		return count;
 	}
