@@ -12,36 +12,43 @@
 		http://www.springframework.org/schema/aop/spring-aop-4.3.xsd 
 		http://www.springframework.org/schema/tx 
 		http://www.springframework.org/schema/tx/spring-tx-4.3.xsd">
-	<!--  注解处理器映射器 -->
-	<!-- <bean
-		class="org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping" /> -->
-	<!--  注解处理器适配器 -->
-	<!--<bean
-		class="org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter" /> -->
-	
-	<!-- 注解驱动 涵盖了 注解处理器映射器和注解处理器适配器-->
+	<!-- 注解处理器映射器 -->
+	<!-- <bean class="org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping" 
+		/> -->
+	<!-- 注解处理器适配器 -->
+	<!--<bean class="org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter" 
+		/> -->
+
+	<!-- 注解驱动 涵盖了 注解处理器映射器和注解处理器适配器 -->
 	<mvc:annotation-driven />
-	
-	<!--  视图解析器 -->
+
+	<!-- 视图解析器 -->
 	<bean
 		class="org.springframework.web.servlet.view.InternalResourceViewResolver" />
 	<context:component-scan base-package="com.neuedu.pro3.control" />
-	<!-- 这里配置的包  要配置到control层 -->
+	<!-- 这里配置的包 要配置到control层 -->
 	
-	<!-- 拦截器的配置：只能拦截处理器路径   -->
+	
+	<!-- 配置静态资源 -->
+
+	<!-- 配置文件上传 所有的二进制提交 -->
+	<bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+		<!-- 设置文件上传的最大尺寸 单位 字节 -->
+		<property name="maxUploadSize">
+			<value>5242880</value>
+		</property>
+	</bean>
+
+	<!-- 拦截器的配置：只能拦截处理器路径 -->
 	<mvc:interceptors>
 		<mvc:interceptor>
-			<mvc:mapping path="/*"/>
+			<mvc:mapping path="/*" />
 			<bean class="com.neuedu.pro3.interceptor.CharacterEncodingInterceptor"></bean>
 		</mvc:interceptor>
-		
+
 		<mvc:interceptor>
-			<mvc:mapping path="/MessageHandler/*"/>
+			<mvc:mapping path="/MessageHandler/*" />
 			<bean class="com.neuedu.pro3.interceptor.AuthorityInterception"></bean>
 		</mvc:interceptor>
 	</mvc:interceptors>
-	
-	<!-- 配置静态资源 -->
-	
-	
 </beans>

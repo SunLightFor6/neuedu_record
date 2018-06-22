@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+<br><br><br>
+
+<!-- 文件上传 不论表单 在form的要求是：
+method="post" enctype="multipart/form-data"(二进制提交 默认是名值对提交) -->
+<form action="test/upload" method="post" enctype="multipart/form-data">
+	<input type="file"  name="upload_file" multiple="multiple" />
+	<button type="submit">提交</button> 
+</form>
+</body>
+</html>

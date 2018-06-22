@@ -41,10 +41,13 @@
 					and context like '%${context}%'
 				</if>
 				<if test="gt_delivertime != null">
-					and delivertime >= to_date(#{gt_delivertime}, 'yyyy-mm-dd')
+					and delivertime >= to_date(#{gt_delivertime}, 'yyyymmdd')
 				</if>
 				<if test="lt_delivertime != null">
-					and delivertime &lt;= to_date(#{lt_delivertime}, 'yyyy-mm-dd')
+					and delivertime &lt;= to_date(#{lt_delivertime}, 'yyyymmdd')
+				</if>
+				<if test="delivertime != null">
+					and delivertime = to_date(#{delivertime}, 'yyyymmdd')
 				</if>
 				<if test="ip != null">
 					and ip like'%${ip}%'

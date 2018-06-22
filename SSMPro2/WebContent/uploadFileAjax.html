@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<meta content="multipart/form-data" />
+<script src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.2.0.js"></script>
+<script type="text/javascript">
+	$(function() {
+		//注册提交按钮的点击事件
+		$("#btn_upload").click(function () {
+			//1. 获得整个表单
+			var dataForm = new FormData(document.getElementById("myForm"));//js内置的class 要求传入原生的form
+			//2. 发送ajax请求
+			$.ajax({
+				url: "test/uploadAjax",
+				//必须是post
+				type: "post",
+				data: dataForm,
+				async: false,
+				//二进制下要写两个参数
+				processData: false, //告诉jQuery不要处理数据
+				contentType: false, //告诉jQuery不要修改请求头
+				dataType: "json",
+				success: function(data) {
+					alert(data.result);
+				}
+			});
+		});
+	})
+</script>
+</head>
+<body>
+<br><br><br>
+
+<!-- 文件上传 不论表单 在form的要求是：
+method="post" enctype="multipart/form-data"(二进制提交 默认是名值对提交) -->
+<form id="myForm" method="post" enctype="multipart/form-data">
+	<input type="file"  name="upload_file" multiple="multiple" />
+	<button id="btn_upload" type="button">提交</button> 
+</form>
+</body>
+</html>
